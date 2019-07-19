@@ -1,0 +1,51 @@
+﻿<ad:ActivityDesigner x:Class="Statistical.R.Design.RScopeDesigner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ad="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation"
+    xmlns:atec="clr-namespace:System.Activities.Presentation.Converters;assembly=System.Activities.Presentation">
+    <ad:ActivityDesigner.Resources>
+        <ResourceDictionary x:Uid="ResourceDictionary_1">
+            <atec:ArgumentToExpressionConverter x:Key="ArgumentToExpressionConverter" />
+            <atec:ModelToObjectValueConverter x:Key="ModelToObjectValueConverter" />
+            <DataTemplate x:Key="Collapsed">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextBlock.FontStyle="Italic" TextBlock.Foreground="#FF6D6D6D">Double-click to view</TextBlock>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="Expanded">
+                <Grid>
+                    <StackPanel>
+                        <ad:WorkflowItemPresenter Name="BodyHandlerContainer" x:Uid="sap:WorkflowItemPresenter_2" HintText="DropActivityHere" Item="{Binding Path=ModelItem.Body.Handler, Mode=TwoWay}" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <Style x:Key="ExpandOrCollapsedStyle" TargetType="{x:Type ContentPresenter}">
+                <Setter Property="ContentPresenter.ContentTemplate" Value="{DynamicResource Expanded}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=ShowExpanded}" Value="false">
+                        <Setter Property="ContentPresenter.ContentTemplate" Value="{DynamicResource Collapsed}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ad:ActivityDesigner.Resources>
+    <ad:ActivityDesigner.Icon>
+        <DrawingBrush>
+            <DrawingBrush.Drawing>
+                <ImageDrawing>
+                    <ImageDrawing.Rect>
+                        <Rect Location="0,0" Size="25,25" />
+                    </ImageDrawing.Rect>
+                    <ImageDrawing.ImageSource>
+                        <BitmapImage UriSource="images\_R.ico" />
+                    </ImageDrawing.ImageSource>
+                </ImageDrawing>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </ad:ActivityDesigner.Icon>
+    <Grid>
+        <ContentPresenter Style="{DynamicResource ExpandOrCollapsedStyle}" Content="{Binding}" />
+    </Grid>
+</ad:ActivityDesigner>
+   
+ 
